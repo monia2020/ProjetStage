@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <a href="{{ path('produits_index') }}" class="btn btn-info text-white"><ion-icon class="chevron text-white" name="chevron-back-outline"></ion-icon>Retour à la liste</a>
+    <button class="btn btn-info text-white mx-4 my-4">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

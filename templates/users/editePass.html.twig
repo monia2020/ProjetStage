@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil {{ app.user.nom }}{% endblock %}
+
+{% block body %}
+    <div class="container form">
+
+        <h1 class=" mb-5">Modification du mot de passe : </h1>
+        
+        <form method="post">
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
+                <div class="col-sm-4">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Mot de passe">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="password2" class="col-sm-2 col-form-label">Confirmer le mot de passe</label>
+                <div class="col-sm-4">
+                    <input type="password" name="password2"  class="form-control" id="password2" placeholder="Mot de passe">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <a href="{{ path('users')}}" class="btn-info btn mr-5">Annuler</a>
+                    <button type="submit" class="btn btn-info">Valider</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

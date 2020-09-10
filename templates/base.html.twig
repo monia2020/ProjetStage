@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css')}}">
+            <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css')}}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha512-0S+nbAYis87iX26mmj/+fWt1MmaKCv80H+Mbo+Ne7ES4I6rxswpfnC6PxmLiw33Ywj2ghbtTw0FkLbMWqh4F7Q==" crossorigin="anonymous" />
+        {% endblock %}
+        {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') | replace({'src=': 'defer src='}) | raw }}
+    </head>
+    <body>
+     <div class="container">
+        {% block header %}
+            <nav class="navbar navbar-expand-md navbar-dark">
+                <form method="get" action="{{ path('produits_index') }}" class="form-inline mt-3 col">
+                    <input name="q" class="form-control mr-2 col-md-6" type="text" placeholder="Que rechercher vous?" aria-label="Search">
+                    <button class="btn btn-info" type="submit">Rechercher</button>
+                </form>      
+            </nav>
+            <div class="row">
+                <div class="col-6">
+                    <a class="navbar-brand" href="{{ path("accueil") }}"><img src="{{ asset('images/logo.jpg') }}" class="logo mx-3 mb-2"></a>
+                </div>
+                <div class="col-6">
+                    <ul class="user">
+                        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                            <li class="nav-item">
+                                <a href="{{ path('users')}}" class="nav-link text-secondary">Bonjour,{{ app.user.nom }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('app_logout')}}" class="nav-link text-secondary"><ion-icon name="person-remove-outline"></ion-icon>Déconnexion</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="{{ path('app_login')}}" class="nav-link text-secondary"><ion-icon name="person-outline"></ion-icon>Connexion</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ path('app_register')}}" class="nav-link text-secondary"><ion-icon name="person-add-outline"></ion-icon>Inscription</a>
+                            </li>
+                        {% endif %}
+                            <li class="nav-item">
+                                <a href="{{ path('panier')}}" class="nav-link text-secondary"><ion-icon name="cart-outline"></ion-icon>Panier</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+            <nav class="container navbar navbar-expand-md navbar-dark bg-light mb-5">
+                <button class="navbar-toggler bg-info" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link text-secondary" href="{{ path("accueil") }}">Accueil<span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a href="{{ path('produits_index') }}" class="text-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usage unique</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-info" href="{{ path('produits_index') }}">Drap examen</a>
+                                    <a class="dropdown-item text-info" href="{{ path('produits_index') }}">Gants</a>
+                                    <a class="dropdown-item text-info" href="{{ path('produits_index') }}">Aiguilles</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a href="#" class="text-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hygiene & desinfection</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-info" href="{{ path('produits_index') }}">Désinfection médicale</a>
+                                    <a class="dropdown-item text-info" href="#">hygiène médicale</a>
+                                    <a class="dropdown-item text-info" href="#">Consommables</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a href="#" class="text-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Protections & vetements</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-info" href="#">Vetements & chaussures</a>
+                                    <a class="dropdown-item text-info" href="#">Protection des mains</a>
+                                    <a class="dropdown-item text-info" href="#">Protection des yeux</a>
+                                    <a class="dropdown-item text-info" href="#">Protection de la tete</a>
+                                    <a class="dropdown-item text-info" href="#">Protections diverses</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a href="#" class="text-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Entretien du cabinet</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-info" href="#">Produits ménagers</a>
+                                    <a class="dropdown-item text-info" href="{{ path('produits_index') }}">Fournitures diverses</a>
+                                </div>
+                            </div>
+                        </li>
+                       <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a href="#" class="text-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Soins & pansements</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-info" href="#">Injections</a>
+                                    <a class="dropdown-item text-info" href="#">Pansements</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <div class="dropdown">
+                                <a  href="#" class="text-secondary dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bien-etre</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item text-info" href="#">hygiène féminine</a>
+                                    <a class="dropdown-item text-info" href="#">Beauté-cosmétique</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>     
+                </div>
+            </nav>
+        {% endblock %}
+
+        {#  Block des alertes #}
+
+        {% block flash %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% for message in app.flashes('message') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endblock %}   
+
+        {% block body %}{% endblock %}
+        {% block footer %}
+            <div class="container footer bg-light text-secondary">
+                <div class="row mb-5 pt-5">
+                   <div class="col-3">
+                        <h4 class="text-info">Besoin d'aide ? </h4>
+                        <a href="{{ path('contact') }}" class="text-secondary"><ion-icon name="mail-outline"></ion-icon>Nous écrire</a><br>
+                        <a href="tel:+33655854122" class="text-secondary"><ion-icon name="call-outline"></ion-icon>Nous appeler au : 0655854122</a>
+                        <p class="contact">(Du Lundi au Samedi de 9h à 19h )</p>
+                   </div>
+                   <div class="col-3">
+                        <h4 class="text-info">Informations légales</h4>
+                        <a href="#" class="text-secondary">Conditions générales de vente</a><br>
+                        <a href="#" class="text-secondary">Mentions légales</a>
+                   </div>
+                   <div class="col-3">
+                        <h4 class="text-info">Services & paiement</h4>
+                        <a href="#" class="text-secondary">Suivi de commande</a><br>
+                        <a href="#" class="text-secondary">Retour, Echange, Rétractation</a><br>
+                        <a href="#" class="text-secondary">Paiement sécurisé</a><br>
+                        <a href="#" class="text-secondary">Nos modes et frais de livraison</a><br>
+                        <a href="#" class="text-secondary">Les moyens de paiements</a>
+                   </div>
+                   <div class="col-3">
+                        <h4 class="text-info">Qui sommes-nous</h4>
+                        <a href="#" class="text-secondary">A propos de Medical-Achat</a><br>
+                        <a href="#" class="text-secondary">Fournisseurs</a>
+                   </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-4">
+                        <h5 class="text-Secondary text-center ">Suivez-nous</h5>
+                        <p class="text-center">Vous serez toujours les premiers à être informés des dernières nouveautés, nos produits et nos offres spéciales exclusives!</p>
+                        <div class="rsociaux">
+                            <a href="https://www.facebook.com/"><ion-icon name="logo-facebook" class="mx-3"></ion-icon></a>
+                            <a href="https://api.whatsapp.com/send?phone=0197888121" target="_blank"><ion-icon name="logo-whatsapp" class="mr-3"></ion-icon></a>
+                            <a href="https://twitter.com/login?lang=fr"><ion-icon name="logo-twitter"></ion-icon></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mb-3 text-center">
+                        &copy {{ "now"|date("Y") }} - Medical-Achat - Tous droits réservés
+                    </div>
+                </div>
+            </div>     
+        {% endblock %}
+        {% block javascripts %}
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+            <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+            <!-- Bootstrap core JavaScript================================================== -->
+            <!-- Placed at the end of the document so the pages load faster -->
+            <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+            <script src="{{asset('js/bootstrap.min.js')}}"></script>
+            <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+            <script src="{{ asset('js/holder.min.js')}}"></script>
+            <script src="{{ asset('js/script.js')}}"></script>
+        {% endblock %}
+        </div>
+    </body>
+</html>

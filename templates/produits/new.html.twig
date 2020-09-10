@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau produit{% endblock %}
+
+{% block body %}
+    <h1 class="text-center text-secondary my-5">Ajouter un nouveau produit</h1>
+    <div class="col-10 mx-5">
+        {{ include('produits/_form.html.twig') }}
+    </div>
+{% endblock %}

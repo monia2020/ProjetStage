@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+            <h1 class="text-center text-secondary mb-2">Décrivez-nous votre besoin</h1>
+            <p class="text-center mb-5 text-info">Vous serez contacté dans les plus brefs délais.</p>
+            <div class="login">
+                {{ form_start(contactForm) }}
+                    <div class="form-row">
+                        <div class="form-group col-8">
+                            <label >Nom</label>
+                            {{ form_widget(contactForm.nom, {'attr':{'placeholder':'Nom', 'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-8">
+                            <label >Email</label>
+                            {{ form_widget(contactForm.email, {'attr':{'placeholder':'Email', 'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-8">
+                            <label >Sujet</label>
+                            {{ form_widget(contactForm.sujet, {'attr':{'placeholder':'Sujet', 'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-8">
+                            <label >Message</label>
+                            {{ form_widget(contactForm.message, {'attr':{'placeholder':'Message', 'class':'form-control'}}) }}
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-info text-white mt-4">Envoyer</button>
+                {{ form_end(contactForm) }}
+        </div>
+    </div>
+{% endblock %}

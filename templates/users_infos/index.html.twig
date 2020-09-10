@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UsersInfosController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center text-secondary my-5">Livraison</h1>
+        <div class="row">
+            <div class="col-8">
+            <form method="POST" action="{{ path('livraison') }}">
+                <h4 class="ml-4 mb-5" >Ajouter une nouvelle adresse</h4>
+                <div class="col-8">
+                    {{ form(form) }}
+                    <button class="btn btn-info" type="submit">Ajouter</button>
+                </div>
+                </form>
+            </div>
+            <div class="col-4">
+             {% if user.informations|length != 0 %}
+                <form method="POST" action="{{ path('validation') }}">
+                    <h4 class="mb-5" >Adresse de livraison</h4>
+                    {% for adresse in user.informations %}
+                        <label class="radio">
+                            <input type="radio" 
+                                name ="livraison" 
+                                value="{{ adresse.id }}"
+                                {% if loop.index0 == 0 %}checked="checked"{% endif %}>
+                                {{ adresse.adresse }}, {{ adresse.codePostal }} {{ adresse.ville }} - {{ adresse.pays }} <a href="{{ path('suppressionadresse', { 'id' : adresse.id }) }}"><ion-icon name="trash-outline"></ion-icon></a>
+                        </label>
+                    {% endfor %}
+                    <button class="btn btn-info mt-4">Valider mon adresse de livraison</button>
+                </form>
+            {% endif %}
+            </div>
+            <a href="{{ path('panier') }}" class="btn btn-info mt-5">Retour</a>
+        </div>
+    </div>
+{% endblock %}

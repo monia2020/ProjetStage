@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil {{ app.user.nom }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h1 class="text-secondary mb-5">Mes informations : </h1>
+        
+        <div class="row">
+            <div class="col-6">
+                <img src="{{ asset('uploads/images/produits/profil.png')}}" alt="image profile">
+            </div>
+            <div class="col-6">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Nom</th>
+                            <td>{{ app.user.nom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Prenom</th>
+                            <td>{{ app.user.prenom }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ app.user.email }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <a href="{{ path('user_modifier')}}" class="btn btn-info mx-3">Modifier le profil</a>
+            <a href="{{ path('user_pass_modifier')}}" class="btn btn-info">Modifier le mot de passe</a>
+        </div>
+    </div>
+{% endblock %}

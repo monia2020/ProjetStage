@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+    {% if is_granted("ROLE_ADMIN") %}
+        <a href="{{ path('produits_new') }}" class="btn btn-info text-white text-right">Créer un nouveau produit</a>
+    {% endif %}
+    <h1 class="text-center text-secondary my-5">Nos produits</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+              {{form_start(form, {attr: {class: 'filter'}}) }}
+                {{ form_row(form.q) }}
+                
+                <h4>Catégories</h4>
+
+                {{ form_row(form.categorie) }}
+
+                <h4>Sous-catégories</h4>
+
+                {{ form_row(form.sousCategories) }}
+
+                <h4>Prix</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(form.min) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(form.max) }}
+                    </div>
+                </div>
+                <div id="prix-slider" data-min="{{ min }}" data-max="{{ max }}" class="mb-5 mt-2">
+                </div>
+                <h4>Promotions</h4>
+                {{ form_row(form.promotion) }}
+
+                <button type="submit" class="btn btn-info text-white w-100">Filtrer</button>
+
+              {{form_end(form)}}
+            </div>
+            <div class="col-md-9">
+                <div class="d-flex justify-content-end mb-2">
+                    {{ knp_pagination_sortable(produits, 'Prix', 'p.prix') }}
+                    {{ knp_pagination_sortable(produits, 'Promo', 'p.promotion') }}
+                </div>
+                <div class="grid">
+                    {% for produit in produits %}
+                        <div class="card">
+                            <a href="{{ path('produits_show', {'id': produit.id}) }}"><img src="{{ asset('uploads/images/produits/')}}{{ produit.image }}" class="card-img-top"></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ produit.nom }}</h5>
+                                <div class="card-title">
+                                    <h5 class="font-weight-bold text-warning">{{ produit.prix | number_format(0, ',' ,'') }} € HT</h5>
+                                    <p class="text-primary">({{ produit.prix * (1 + ((produit.tva)/100))}} € TTC)</p>
+                                    {% if produit.promotion %}
+                                        <div class="text text-success">Promo !</div>
+                                    {% endif %}
+                                    <div>
+                                    {% for c in produit.categorie %}
+                                        <h1><em class="text-warning">#{{ c.nom }}</em></h1>
+                                    {% endfor %}
+                                </div>
+                                </div>
+                                <p class="text text-muted">{{ produit.description }}</p>
+                                <a href="{{ path('panier_ajouter', {'id': produit.id}) }}" class="btn btn-info"><ion-icon class="text-white" name="cart-outline"></ion-icon>Ajouter</a>
+                            </div>
+                        </div>
+                    {% else %}
+                    <tr>
+                        <td colspan="11">Pas encore de produits</td>
+                    </tr>
+                    {% endfor %}
+                </div>
+                <div class="mt-5">
+                    {{ knp_pagination_render(produits) }}                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {# <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Reference</th>
+                <th>Categorie</th>
+                <th>Prix</th>
+                <th>Created_at</th>
+                <th>Stock</th>
+                <th>Caracteristiques</th>
+                <th>Risques</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.reference }}</td>
+                <td>{{ produit.categorie }}</td>
+                <td>{{ produit.prix }} HT</td>
+                <td>{{ produit.createdAt ? produit.createdAt|date('d-m-Y') : '' }}</td>
+                <td>{{ produit.stock }}</td>
+                <td>{{ produit.caracteristiques }}</td>
+                <td>{{ produit.risques }}</td>
+                <td>{{ produit.description }}</td>
+                <td>
+                    <img src="{{ asset('uploads/images/produits/')}}{{ produit.image }}" class="imageproduit">
+                </td>
+                <td>
+                    <a href="{{ path('produits_show', {'id': produit.id}) }}" class="text-secondary"><ion-icon name="eye-outline"></ion-icon>Détails</a>
+                    <a href="{{ path('produits_edit', {'id': produit.id}) }}" class="text-secondary"><ion-icon name="create-outline"></ion-icon>Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">Pas encore de produits</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> #}
+
+{% endblock %}

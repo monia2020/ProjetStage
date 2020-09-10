@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@680&display=swap');
+
+body
+{
+    min-height: 80vh;
+    position:relative;
+    font-family: 'Mukta', sans-serif;
+    width:100%;
+}
+.footer
+{
+    position:absolute;
+    margin-bottom: -700px;
+    bottom: 0;
+}
+
+.nav-link, .footer
+{
+    font-size: 14px;
+}
+
+/* header */
+
+header
+{
+    margin-bottom: 10px;
+}
+.dropdown-toggle
+{
+    font-size: 14.3px;
+}
+.dropdown
+{
+    margin-top: 6px;
+}
+
+.user li
+{
+    margin: 0;
+    display: inline-block;
+}
+
+ul li
+{
+    list-style: none;
+}
+
+.user
+{
+    margin-top: 35px;
+    margin-left: 50px;
+}
+
+.login, .register
+{
+    margin-left:350px;
+}
+
+#navbarCollapse
+{
+    margin-left: 100px;
+}
+
+ion-icon
+{
+    font-size: 24px;
+    color:#3fbbc0;
+    margin-bottom:-2px;
+    margin-right: 5px;
+}
+
+.logo
+{
+    width: 150px;
+}
+
+
+/* input recherche */
+
+.form-inline
+{
+    margin-left: 280px;
+}
+.nouveaute
+{
+    margin-left: 80px;
+}
+
+/* Diaporama marques */
+.carou
+{
+    margin-left: 150px;
+    
+}
+
+.imagecarousel
+{
+    height:360px;
+}
+
+.carouselmarque
+{
+    height:100px;
+}
+/* Footer */
+
+.contact
+{
+    margin-top: 5px;
+}
+
+.rsociaux
+{
+    margin-left: 500px;
+}
+
+/* Produits */
+.chevron
+{
+    font-size: 18px;
+}
+
+.imageproduit
+{
+    max-height: 200px;
+    width:100px;
+}
+
+.btnsupp
+{
+    margin-top: -100px;
+    margin-left: 780px;
+}
+
+.grid
+{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+.filter
+{
+    display:block;
+    position: sticky;
+}
+
+.btnpanier
+{
+    margin-left: 700px;
+}
+
+.btnpaye
+{
+    margin-left: 900px;
+}
+
+/* RESPONSIVE */
+
+@media screen and (max-width:1199px)
+{
+    #navbarCollapse
+    {
+        margin:0;
+    }
+
+    .user
+    {
+        margin-left:0;
+    }
+}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails produit{% endblock %}
+
+{% block body %}
+    <h1 class="mb-5 text-secondary">{{ produit.nom }} - {{ produit.reference }}</h1>
+    <div class="row mb-5">
+        <div class="col-8">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Nom</th>
+                        <td>{{ produit.nom }}</td>
+                    </tr>
+                    <tr>
+                        <th>Categorie</th>
+                        <td>{{ produit.categorie }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sous-Categorie</th>
+                        <td>{{ produit.sousCategories }}</td>
+                    </tr>
+                    <tr>
+                        <th>Caracteriqtiques</th>
+                        <td>{{ produit.caracteristiques }}</td>
+                    </tr>
+                    <tr>
+                        <th>Risques</th>
+                        <td>{{ produit.risques }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ produit.description }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4">
+            <p class="text-secondary text-right text-bold">Reference : {{ produit.reference }} </p>
+            <img src="{{ asset('uploads/images/produits/')}}{{ produit.image }}">
+            <h3 class="text-right text-warning font-weight-bold"> {{ produit.prix}} € HT</h3>
+            <h5 class="text-right text-primary font-weight-bold"> ({{ produit.prix * (1 + ((produit.tva)/100))}} € TTC)  </h5>
+            <p class="text-right mt-3 text-success font-weight-bold"> En stock : {{ produit.stock}} </p>
+            <a href="{{ path('panier_ajouter', {'id': produit.id}) }}" class="btn btn-info ml-5 mt-3"><ion-icon class="text-white" name="cart-outline"></ion-icon>Ajouter au panier</a>
+        </div>
+    </div>
+
+        <a href="{{ path('produits_index') }}" class="btn btn-info text-white mr-5"><ion-icon class="chevron text-white" name="chevron-back-outline"></ion-icon>Retour à la liste</a>
+
+    {% if is_granted("ROLE_ADMIN") %}
+
+        <a href="{{ path('produits_edit', {'id': produit.id}) }}" class="text-secondary ml-5"><ion-icon name="create-outline"></ion-icon>Modifier</a>
+
+        {{ include('produits/_delete_form.html.twig') }}
+
+    {% endif %}
+    
+{% endblock %}
